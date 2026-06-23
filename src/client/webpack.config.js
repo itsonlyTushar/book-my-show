@@ -6,15 +6,16 @@ module.exports = {
     output: {
         path: path.join(__dirname, "dist"),
         filename: "index_bundle.js",
+        publicPath: "/"
     },
     devServer: {
-        proxy: {
+        proxy: process.env.NODE_ENV !== 'production' ? {
             '/api/**': {
                 target: 'http://localhost:8080/',
                 secure: false,
                 changeOrigin: true
             }
-        },
+        } : {},
     },
 
     module: {
