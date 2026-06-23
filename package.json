@@ -1,11 +1,12 @@
 {
   "name": "book-a-movie-ticket",
   "version": "1.0.0",
-"scripts": {
-  "build": "cd src/client && npm install && npm run build",
-  "start": "node src/index.js"
-},
+  "scripts": {
+    "build": "cd src && npm install && cd client && npm install && npm run build",
+    "start": "node src/index.js"
+  },
   "engines": {
     "node": "18.x"
   }
 }
+
