@@ -10,8 +10,30 @@ const { connection } = require("./connector");
 const cors = require('cors')
 app.use(cors())
 
+const { swaggerUI, swaggerSpec } = require('./config/swagger')
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
+
+/**
+ * @openapi
+ * /api/booking:
+ *   post:
+ *     summary: Create a new movie booking
+ *     tags:
+ *       - Booking
+ *     responses:
+ *       200:
+ *         description: Booking created successfully
+ *       400:
+ *         description: Bad request - missing required fields
+ *       500:
+ *         description: 'Internal Server Error'
+ *
+ */
 app.post("/api/booking", async (req, res) => {
     const { movie, slot, seats } = req.body;
+    if (!movie || !slot || !seats) {
+        return res.status(400).json({ message: "Missing required fields: movie, slot, seats" });
+    }
     try {
         const newBooking = new connection({ movie, slot, seats });
         await newBooking.save();
@@ -21,6 +43,20 @@ app.post("/api/booking", async (req, res) => {
     }
 });
 
+/**
+ * @openapi
+ * /api/booking:
+ *   get:
+ *     summary: Get last booking details
+ *     tags:
+ *       - Booking
+ *     responses:
+ *       200:
+ *         description: success
+ *       500: 
+ *         description: 'Error: Internal Server Error'
+ *
+ */
 app.get("/api/booking", async (req, res) => {
     try {
         const lastBooking = await connection.findOne().sort({ _id: -1 });

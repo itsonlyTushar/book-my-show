@@ -17,6 +17,8 @@
     "express": "4.17.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.15",
-    "node-serialize": "0.0.4"
+    "node-serialize": "0.0.4",
+    "swagger-jsdoc": "^6.3.0",
+    "swagger-ui-express": "^5.0.1"
   }
 }
