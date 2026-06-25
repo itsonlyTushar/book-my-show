@@ -129,7 +129,7 @@ const App = () => {
   return (
     <>
       <div className="booking-box">
-        <h1>Book that show!!</h1>
+        <h1>Book My Show</h1>
 
         {/* To Display movies  */}
         <section className="grid-box">
@@ -201,12 +201,14 @@ const App = () => {
                 <p>
                   <strong>Slot:</strong> {bookingDetails.slot}
                 </p>
-                <p>
+                <p className="display-seats">
                   <strong>Seats:</strong>{" "}
-                  {Object.entries(bookingDetails.seats || {})
-                    .filter(([_, count]) => count > 0)
-                    .map(([name, count]) => `${name}: ${count}`)
-                    .join(", ")}
+                  {Object.entries(bookingDetails.seats)
+                    .map(([name, count]) => (
+                      <span key={name} className="seat-badge">
+                        {name}: {count}
+                      </span>
+                    ))}
                 </p>
               </div>
             )}

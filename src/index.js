@@ -9,16 +9,16 @@ app.use(bodyParser.json());
 const cors = require('cors')
 app.use(cors())
 
-const { swaggerUI, swaggerSpec } = require('./config/swagger')
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
-
 // Updating routes created in src/routes
 const bookingRoutes = require("./routes/booking");
 app.use("/api/booking", bookingRoutes);
 
+// Will match the route and serve to the index.html
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client/dist')))
 
+    const { swaggerUI, swaggerSpec } = require('./config/swagger')
+    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec))
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, 'client/dist', 'index.html'))
     })
