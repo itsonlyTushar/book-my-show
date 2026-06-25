@@ -9,6 +9,26 @@ const { connection } = require("../connector");
  *     summary: Create a new movie booking
  *     tags:
  *       - Booking
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - movie
+ *               - slot
+ *               - seats
+ *             properties:
+ *               movie:
+ *                 type: string
+ *                 example: "Tenet"
+ *               slot:
+ *                 type: string
+ *                 example: "10:00 AM"
+ *               seats:
+ *                 type: object
+ *                 example: {"A1": 2}
  *     responses:
  *       200:
  *         description: Booking created successfully
